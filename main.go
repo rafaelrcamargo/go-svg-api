@@ -1,15 +1,15 @@
 package main
 
 import (
-	/* . "github.com/RafaelRCamargo/go-svg-api/server" */
+	. "github.com/RafaelRCamargo/go-svg-api/server"
+	. "github.com/RafaelRCamargo/go-svg-api/services"
+	. "github.com/RafaelRCamargo/go-svg-api/utils"
+
 	"net/http"
 	"os"
 	. "strconv"
 
-	. "github.com/RafaelRCamargo/go-svg-api/services"
-	. "github.com/RafaelRCamargo/go-svg-api/utils"
-
-	"github.com/joho/godotenv"
+	/* "github.com/joho/godotenv" */
 	"github.com/wcharczuk/go-chart/v2"
 )
 
@@ -52,13 +52,13 @@ func httpserver(w http.ResponseWriter, _ *http.Request) {
 }
 
 func main() {
-	/* Server() */
-	err := godotenv.Load(".env")
+	Server()
+	/* err := godotenv.Load(".env")
 
 	if err != nil {
 		println("Error loading .env file")
 	}
 
 	http.HandleFunc("/", httpserver)
-	http.ListenAndServe(os.Getenv("PORT"), nil)
+	http.ListenAndServe(os.Getenv("PORT"), nil) */
 }

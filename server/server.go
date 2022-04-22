@@ -58,7 +58,11 @@ func Server(port string) {
 	r.GET("/", statsHandler)
 
 	r.GET("/favicon.ico", func(c *gin.Context) {
-		c.File("./static/favicon.ico")
+		c.File("../static/favicon.ico")
+	})
+
+	r.GET("/loaderio-07ebb0e79017dfb371716222d71cf435", func(c *gin.Context) {
+		c.File("../loaderio-07ebb0e79017dfb371716222d71cf435.txt")
 	})
 
 	r.Run(":" + port)

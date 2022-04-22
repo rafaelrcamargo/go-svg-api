@@ -52,7 +52,7 @@ func httpserver(w http.ResponseWriter, _ *http.Request) {
 }
 
 func main() {
-	Server()
+	Server(os.Getenv("PORT"))
 	/* err := godotenv.Load(".env")
 
 	if err != nil {

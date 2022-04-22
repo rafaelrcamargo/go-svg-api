@@ -5,10 +5,9 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
-	. "github.com/lunux2008/xulu"
 )
 
-func Server(PORT string) {
+func Server(port string) {
 	println("Starting server...")
 
 	r := gin.Default()
@@ -22,15 +21,6 @@ func Server(PORT string) {
 	r.GET("/favicon.ico", func(c *gin.Context) {
 		c.File("./static/favicon.ico")
 	})
-
-	port := ":8080"
-
-	println("\nPORT:\n", PORT)
-
-	if PORT != "" {
-		port := PORT
-		Use(port)
-	}
 
 	r.Run(port)
 

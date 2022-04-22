@@ -5,12 +5,12 @@ import (
 	. "github.com/RafaelRCamargo/go-svg-api/services"
 	. "github.com/RafaelRCamargo/go-svg-api/utils"
 
+	"github.com/joho/godotenv"
+	"github.com/wcharczuk/go-chart/v2"
+
 	"net/http"
 	"os"
 	. "strconv"
-
-	/* "github.com/joho/godotenv" */
-	"github.com/wcharczuk/go-chart/v2"
 )
 
 func httpserver(w http.ResponseWriter, _ *http.Request) {
@@ -52,13 +52,10 @@ func httpserver(w http.ResponseWriter, _ *http.Request) {
 }
 
 func main() {
-	Server(os.Getenv("PORT"))
-	/* err := godotenv.Load(".env")
+	godotenv.Load()
+	port := os.Getenv("PORT")
 
-	if err != nil {
-		println("Error loading .env file")
-	}
-
-	http.HandleFunc("/", httpserver)
+	Server(port)
+	/*http.HandleFunc("/", httpserver)
 	http.ListenAndServe(os.Getenv("PORT"), nil) */
 }

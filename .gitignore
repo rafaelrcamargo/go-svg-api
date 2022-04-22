@@ -17,3 +17,5 @@
 *.jpg
 *.png
 *.svg
+
+.env

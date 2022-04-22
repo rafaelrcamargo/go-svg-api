@@ -1,12 +1,21 @@
 package server
 
 import (
-	"github.com/gin-gonic/gin"
 	"net/http"
+	"os"
+
+	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 )
 
 func Server() {
 	println("Starting server...")
+
+	err := godotenv.Load(".env")
+
+	if err != nil {
+		println("Error loading .env file")
+	}
 
 	r := gin.Default()
 
@@ -20,7 +29,7 @@ func Server() {
 		c.File("./static/favicon.ico")
 	})
 
-	r.Run(":80")
+	r.Run(os.Getenv("PORT"))
 
-	println("Listing for requests at http://localhost/")
+	println("Listing for requests at http://localhost/" + os.Getenv("PORT"))
 }

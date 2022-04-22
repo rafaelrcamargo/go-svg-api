@@ -1,27 +1,57 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
-	"log"
+	/* . "github.com/RafaelRCamargo/go-svg-api/server" */
 	"net/http"
+	"os"
+	. "strconv"
+
+	. "github.com/RafaelRCamargo/go-svg-api/services"
+	. "github.com/RafaelRCamargo/go-svg-api/utils"
+
+	"github.com/wcharczuk/go-chart/v2"
 )
 
+func httpserver(w http.ResponseWriter, _ *http.Request) {
+	data := GetData()
+
+	var days []string
+	items := make([]chart.Value, 0)
+
+	for _, item := range data {
+		date := GetDate(item.Week)
+		year, month, day := date.Date()
+		localeDate := month.String() + " " + Itoa(day) + ", " + Itoa(year)
+
+		days = append(days, localeDate)
+		items = append(items, chart.Value{Value: float64(item.Total), Label: localeDate})
+	}
+
+	graph := chart.BarChart{
+		Title:      "Test Bar Chart",
+		BarSpacing: 12,
+		TitleStyle: chart.Hidden(),
+		Font:       chart.Hidden().Font,
+		Background: chart.Style{
+			TextHorizontalAlign: chart.TextHorizontalAlignCenter,
+			TextVerticalAlign:   chart.TextVerticalAlignMiddle,
+			FontColor:           chart.ColorAlternateGray,
+			FontSize:            0.0,
+		},
+		Height:   512,
+		BarWidth: 92,
+		Bars:     items,
+	}
+
+	w.Header().Set("Content-Type", "image/svg+xml")
+
+	f, _ := os.Create("output.svg")
+	defer f.Close()
+	graph.Render(chart.SVG, w)
+}
+
 func main() {
-	log.Println("Starting server...")
-
-	r := gin.Default()
-
-	r.GET("/", func(c *gin.Context) {
-		c.PureJSON(http.StatusOK, gin.H{
-			"html": "<div>aaa</div>",
-		})
-	})
-
-	r.GET("/favicon.ico", func(c *gin.Context) {
-		c.File("./favicon.ico")
-	})
-
-	r.Run(":8000")
-
-	log.Println("Listing for requests at http://localhost:8000/")
+	/* Server() */
+	http.HandleFunc("/", httpserver)
+	http.ListenAndServe(":8081", nil)
 }

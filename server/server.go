@@ -2,7 +2,6 @@ package server
 
 import (
 	"net/http"
-	"os"
 
 	"github.com/gin-gonic/gin"
 )
@@ -22,7 +21,7 @@ func Server(port string) {
 		c.File("./static/favicon.ico")
 	})
 
-	r.Run(port)
+	r.Run(":" + port)
 
-	println("Listing for requests at http://localhost/" + os.Getenv("PORT"))
+	println("Listing for requests at http://localhost:" + port)
 }

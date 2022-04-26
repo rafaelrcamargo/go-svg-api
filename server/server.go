@@ -61,10 +61,6 @@ func Server(port string) {
 		c.File("./static/favicon.ico")
 	})
 
-	r.GET("/loaderio-07ebb0e79017dfb371716222d71cf435", func(c *gin.Context) {
-		c.File("./loaderio-07ebb0e79017dfb371716222d71cf435.txt")
-	})
-
 	r.Run(":" + port)
 
 	println("Listing for requests at http://localhost:" + port)
